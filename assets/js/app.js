@@ -81,7 +81,7 @@ d3.csv("assets/data/data.csv").then(function(CenData) {
       .attr("class", "d3-tip")
       .offset([80, -60])
       .html(function(d) {
-        return (`${d.state}<br>Poverty: ${d.poverty}%<br>Healthcare: ${d.healthcare}%`);
+        return (`${d.state}<br>Poverty: ${d.poverty}%<br>Lack Healthcare: ${d.healthcare}%`);
       });
 
     // Step 7: Create tooltip in the chart
@@ -90,7 +90,7 @@ d3.csv("assets/data/data.csv").then(function(CenData) {
 
     // Step 8: Create event listeners to display and hide the tooltip
     // ==============================
-    circlesGroup.on("click", function(data) {
+    circlesGroup.on("mouseover", function(data) {
       toolTip.show(data, this);
     })
       // onmouseout event
@@ -105,7 +105,7 @@ d3.csv("assets/data/data.csv").then(function(CenData) {
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .attr("class", "axisText")
-      .text("Healthcare Percentage");
+      .text("Lack Healthcare Percentage");
 
     chartGroup.append("text")
       .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
