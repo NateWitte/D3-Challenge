@@ -61,9 +61,19 @@ d3.csv("assets/data/data.csv").then(function(CenData) {
     .append("circle")
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.healthcare))
-    .attr("r", "15")
-    .attr("fill", "blue")
-    .attr("opacity", ".5");
+    .attr("r", "10")
+    .attr("class", "stateCircle");
+
+    var fontsize=10;
+    var stateabbr = chartGroup.selectAll(null)
+        .data(CenData)
+        .enter()
+        .append('text')
+        .text(d => d.abbr)
+        .attr('x', d => xLinearScale(d.poverty))
+        .attr('y', d => yLinearScale(d.healthcare)+5)
+        .attr('font-size', `${fontsize}px`)
+        .attr('class', 'stateText');
 
     // Step 6: Initialize tool tip
     // ==============================
