@@ -1,11 +1,11 @@
 // @TODO: YOUR CODE HERE!
 var svgWidth = 960;
-var svgHeight = 500;
+var svgHeight = 600;
 
 var margin = {
   top: 20,
   right: 40,
-  bottom: 60,
+  bottom: 120,
   left: 100
 };
 
@@ -66,16 +66,16 @@ function updateToolTip(chosenXAxis, circlesGroup) {
         .attr("class", "d3-tip")
         .offset([80, -60])
         .html(function(d) {
-            return (`${d.state}<br>${label}${d[chosenXAxis]}%<br>Lack Healthcare: ${d.healthcare}%`)
+            return (`${d.state}<br>${label}${d[chosenXAxis]}%<br>Lack Healthcare: ${d.healthcare}%`);
         });
     
     circlesGroup.call(toolTip);
 
     circlesGroup.on("mouseover", function(data) {
-        toolTip.show(data)
+        toolTip.show(data, this);
     })
         .on("mouseout", function(data, index){
-            toolTip.hide(data);
+            toolTip.hide(data, this);
         });
     
     return circlesGroup;
