@@ -39,34 +39,39 @@ function renderXAxes(newXScale, xAxis) {
     return xAxis;
 }
 //Make updating circles function
-function renderCircles(circlesGroup, newXScale, chosenXAxis){
+function renderCircles(circlesGroup, newXScale, chosenXAxis, stateabbr){
 
     circlesGroup.transition()
         .duration(1000)
         .attr("cx", d => newXScale(d[chosenXAxis]));
-
+    stateabbr.transition()
+        .duration(1000)
+        .attr('x', d => newXScale(d[chosenXAxis]));
     return circlesGroup;
 }
 //Make updating tool tips function
 function updateToolTip(chosenXAxis, circlesGroup) {
 
     var label;
+    var label2="";
 
     if (chosenXAxis === "poverty") {
         label = "Poverty: ";
+        label2 = "%";
     }
     else if (chosenXAxis === "age") {
         label = "Age: ";
     }
     else {
-        label = "Household Income: ";
+        label = "Household Income ($): ";
+        label2 = "";
     }
 
     var toolTip = d3.tip()
         .attr("class", "d3-tip")
-        .offset([80, -60])
+        .offset([80, -80])
         .html(function(d) {
-            return (`${d.state}<br>${label}${d[chosenXAxis]}%<br>Lack Healthcare: ${d.healthcare}%`);
+            return (`${d.state}<br>${label}${d[chosenXAxis]}${label2}<br>Lack Healthcare: ${d.healthcare}%`);
         });
     
     circlesGroup.call(toolTip);
@@ -151,7 +156,7 @@ d3.csv("assets/data/data.csv").then(function(CenData) {
     var houseincomeLabel = labelsGroup.append("text")
         .attr("x", 0)
         .attr("y", 60)
-        .attr("value", "houseincome")
+        .attr("value", "income")
         .classed("inactive", true)
         .text("Household Income (Median)");
 
@@ -174,7 +179,7 @@ d3.csv("assets/data/data.csv").then(function(CenData) {
                 xAxis = renderXAxes(xLinearScale, xAxis);
 
                 //update circles
-                circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
+                circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis, stateabbr);
 
                 //update tool tips
                 circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
