@@ -158,7 +158,7 @@ d3.csv("assets/data/data.csv").then(function(CenData) {
       .attr("transform", `translate(0, ${height})`)
       .call(bottomAxis);
 
-    chartGroup.append("g")
+    var yAxis = chartGroup.append("g")
       .call(leftAxis);
 
     // Step 5: Create Circles
@@ -168,7 +168,7 @@ d3.csv("assets/data/data.csv").then(function(CenData) {
     .enter()
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
-    .attr("cy", d => yLinearScale(d.healthcare))
+    .attr("cy", d => yLinearScale(d[chosenYAxis]))
     .attr("r", "10")
     .attr("class", "stateCircle");
 
@@ -179,28 +179,28 @@ d3.csv("assets/data/data.csv").then(function(CenData) {
         .append('text')
         .text(d => d.abbr)
         .attr('x', d => xLinearScale(d[chosenXAxis]))
-        .attr('y', d => yLinearScale(d.healthcare)+5)
+        .attr('y', d => yLinearScale(d[chosenYAxis])+5)
         .attr('font-size', `${fontsize}px`)
         .attr('class', 'stateText');
 
-    var labelsGroup = chartGroup.append("g")
+    var xlabelsGroup = chartGroup.append("g")
         .attr("transform", `translate(${width/2}, ${height+20})`);
     
-    var povertyLabel = labelsGroup.append("text")
+    var povertyLabel = xlabelsGroup.append("text")
         .attr("x", 0)
         .attr("y", 20)
         .attr("value", "poverty")
         .classed("active", true)
         .text("In Poverty (%)");
 
-    var ageLabel = labelsGroup.append("text")
+    var ageLabel = xlabelsGroup.append("text")
         .attr("x", 0)
         .attr("y", 40)
         .attr("value", "age")
         .classed("inactive", true)
         .text("Age (Median)");
 
-    var houseincomeLabel = labelsGroup.append("text")
+    var houseincomeLabel = xlabelsGroup.append("text")
         .attr("x", 0)
         .attr("y", 60)
         .attr("value", "income")
@@ -210,7 +210,7 @@ d3.csv("assets/data/data.csv").then(function(CenData) {
     var circlesGroup = updateToolTip(chosenXAxis, circlesGroup, chosenYAxis);
 
     // x axis labels event listener
-    labelsGroup.selectAll("text")
+    xlabelsGroup.selectAll("text")
         .on("click", function(){
             //get value of selection
             var value = d3.select(this).attr("value");
