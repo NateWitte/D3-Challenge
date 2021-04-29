@@ -298,7 +298,7 @@ d3.csv("assets/data/data.csv").then(function(CenData) {
                     smokesLabel.classed("active", false).classed("inactive", true);
                     obeseLabel.classed("active", false).classed("inactive", true);
                 }
-                else if (chosenXAxis === "obesity") {
+                else if (chosenYAxis === "obesity") {
                     healthcareLabel.classed("active", false).classed("inactive", true);
                     obeseLabel.classed("active", true).classed("inactive", false);
                     smokesLabel.classed("active", false).classed("inactive", true);
