@@ -39,7 +39,6 @@ function yScale(CenData, chosenYAxis) {
         d3.max(CenData, d => d[chosenYAxis]) * 1.2
       ])
       .range([height, 0]);
-  
     return yLinearScale;
   
   }
@@ -140,6 +139,10 @@ d3.csv("assets/data/data.csv").then(function(CenData) {
     CenData.forEach(function(data) {
       data.poverty = +data.poverty;
       data.healthcare = +data.healthcare;
+      data.income = +data.income;
+      data.healthcare = +data.healthcare;
+      data.smokes = +data.smokes;
+      data.obesity = +data.obesity;
     });
     // Step 2: Create scale functions
     // ==============================
